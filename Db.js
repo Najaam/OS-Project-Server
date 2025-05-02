@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 // const {dburl} =  require('./config');
 const mongourl = "mongodb://localhost:27017/OSProject";
 

@@ -15,6 +15,8 @@ const transporter = nodemailer.createTransport({
  * @param {string} username - The user's name.
  * @param {string} email - The user's email.
  */
+
+
 async function sendWelcomeEmail(username, email) {
   const mailOptions = {
     from: `"Jade Os" <${process.env.EMAIL_USER}>`, // Sender address
@@ -34,4 +36,35 @@ async function sendWelcomeEmail(username, email) {
   await transporter.sendMail(mailOptions);
 }
 
-export { sendWelcomeEmail };
+const sendOtpEmail = async (email, otp) => {
+  try {
+    const mailOptions = {
+      from: `"Jade Os" <${process.env.EMAIL_USER}>`, // Sender address
+      to: email, // Recipient's email
+      subject: "Your OTP Code",
+      text: `Hello,\n\nYour OTP code for verifying your account with Jade Virtual OS is: ${otp}\n\nPlease use this code to complete your verification process.\n\nBest regards,\nThe Jade Virtual OS Team`,
+      html: `
+        <h1>Your OTP Code</h1>
+        <p>Hello,</p>
+        <p>Your OTP code for verifying your account with Jade Virtual OS is: <strong>${otp}</strong></p>
+        <p>Please use this code to complete your verification process.</p>
+        <p>Best regards,<br>The Jade Virtual OS Team</p>
+      `,
+    };
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail", // or another email provider
+      auth: {
+        user: process.env.EMAIL_USER, // your email
+        pass: process.env.EMAIL_PASS, // your app password
+      },
+    });
+
+    await transporter.sendMail(mailOptions); // Send the email
+  } catch (err) {
+    console.error("Error in sendOtpEmail:", err);
+    throw new Error("Failed to send OTP email."); // Throw error if email sending fails
+  }
+};
+
+export { sendWelcomeEmail,sendOtpEmail  };

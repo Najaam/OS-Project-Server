@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./Db");
-const authroute = require("./Routes/Authroutes");
-const protectedroute = require("./Routes/Protectedroute");
+const db = require("../Db");
+const authroute = require("../Routes/Authroutes");
+const protectedroute = require("../Routes/Protectedroute");
 const app = express();
-const { port } = require("./config");
+const { port } = require("../config");
 const PORT = port;
 
 

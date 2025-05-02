@@ -59,5 +59,24 @@ res.status(200).json({ token });
 res.status(500).json({ error: 'Login failed' });
 }
 });
+router.get('/users', async (req, res) => {
+  try {
+    // Retrieve all users from the database
+    const users = await User.find();
+
+    // Exclude sensitive information like passwords
+    const sanitizedUsers = users.map(user => ({
+      username: user.username,
+      email: user.email,
+      createdAt: user.createdAt,
+    }));
+
+    // Send response with all users
+    res.status(200).json(sanitizedUsers);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
 
 module.exports = router;

@@ -3,7 +3,6 @@ const cors = require("cors");
 const db = require("../Db");
 const authroute = require("../Routes/Authroutes");
 const protectedroute = require("../Routes/Protectedroute");
-const serverless = require("serverless-http");
 const app = express();
 
 // Middleware
@@ -18,8 +17,8 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.use("/auth", authroute);
-app.use("/protected", protectedroute);
+app.use("/api/auth", authroute);
+app.use("/api/protected", protectedroute);
 
 // Handle undefined routes
 app.use((req, res) => {
@@ -28,4 +27,4 @@ app.use((req, res) => {
   });
 });
 
-module.exports.handler = serverless(app);
+module.exports = app;

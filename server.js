@@ -4,8 +4,10 @@ const db = require("./Db");
 const authroute = require("./Routes/Authroutes");
 const protectedroute = require("./Routes/Protectedroute");
 const app = express();
+const serverless = require('serverless-http');
 const { port } = require("./config");
 const PORT = port;
+
 
 
 // Middleware
@@ -35,4 +37,4 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
-module.exports = app;
+module.exports.handler = serverless(app);

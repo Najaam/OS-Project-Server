@@ -1,21 +1,22 @@
-const mongoose = require('mongoose');
-// const {dburl} =  require('./config');
-const mongourl = "mongodb://localhost:27017/OSProject";
+import mongoose from 'mongoose';
 
-mongoose.connect(mongourl);
+const mongourl = "mongodb+srv://test:test123@osproejct.vsjcopi.mongodb.net/?retryWrites=true&w=majority&appName=OSProejct";
+
+const connectToMongoDB = async () => {
+    try {
+        await mongoose.connect(mongourl);
+        console.log("Connected to MongoDB");
+    } catch (err) {
+        console.error("Error in connecting to MongoDB:", err.message);
+    }
+};
+
+connectToMongoDB();
 
 const db = mongoose.connection;
 
-db.on('connected',() => {
-    console.log("Connected to MongoDB");  
-})
-
-db.on('error',() => {    
-    console.log("Error in connecting to MongoDB");
-})
-
-db.on('disconnected',() => {    
+db.on('disconnected', () => {
     console.log("MongoDB disconnected");
-})
+});
 
 export default db;

@@ -4,6 +4,7 @@ const swaggerUi = require("swagger-ui-express");
 // const swaggerJsDoc = require("swagger-jsdoc");
 const { swaggerDefinition, paths } = require("../Helpers/swaggerdef");
 const authroute = require("../Routes/Authroutes");
+const fs = require("fs");
 
 const app = express();
 const PORT = 3000;
@@ -33,6 +34,8 @@ app.get("/", (req, res) => {
 
 // Swagger route
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use(express.static("public"));
+
 
 // Routes
 app.use("/auth", authroute);

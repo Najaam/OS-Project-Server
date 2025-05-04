@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 // Swagger route
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use(express.static("public"));
+
 
 
 // Routes

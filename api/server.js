@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const swaggerUi = require("swagger-ui-express");
-// const swaggerJsDoc = require("swagger-jsdoc");
+
 const { swaggerDefinition, paths } = require("../Helpers/swaggerdef");
 const authroute = require("../Routes/Authroutes");
 const fs = require("fs");
@@ -9,17 +8,7 @@ const fs = require("fs");
 const app = express();
 const PORT = 3000;
 
-// Swagger options
-const swaggerOptions = {
-  definition: swaggerDefinition,
-  apis: [], // Not required as paths are manually added
-};
 
-// Manually add paths to Swagger docs
-const swaggerDocs = {
-  ...swaggerOptions.definition,
-  paths,
-};
 
 // Middleware
 app.use(express.json());
@@ -32,8 +21,6 @@ app.get("/", (req, res) => {
 });
 
 
-// Swagger route
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 

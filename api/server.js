@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-
-const { swaggerDefinition, paths } = require("../Helpers/swaggerdef");
 const authroute = require("../Routes/Authroutes");
 const fs = require("fs");
 

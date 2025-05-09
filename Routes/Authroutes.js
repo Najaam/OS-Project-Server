@@ -5,8 +5,7 @@ const User = require('../Models/UserSchema');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-require('dotenv').config();
-const jwtSecret = process.env.JWT_SECRET;
+const secretKey = crypto.randomBytes(32).toString('hex');
 const {sendWelcomeEmail,sendOtpEmail} = require("../Helpers/mailing")
 
 
@@ -51,8 +50,9 @@ const passwordMatch = await bcrypt.compare(password, user.password);
 if (!passwordMatch) {
 return res.status(401).json({ error: 'Authentication failed' });
 }
-const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
-
+const token = jwt.sign({ userId: user._id }, secretKey, {
+expiresIn: '1h',
+});
 console.log(secretKey);
 res.status(200).json({ token });
 } catch (error) {

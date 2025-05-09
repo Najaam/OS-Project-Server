@@ -3,7 +3,6 @@ const cors = require("cors");
 const authroute = require("../Routes/Authroutes");
 const fileroute = require("../Routes/Filesystemroutes")
 const fs = require("fs");
-const db = require ("../Db")
 
 const app = express();
 const PORT = 3000;

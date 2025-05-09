@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Auth API Documentation",
+        "title": "API Documentation",
         "version": "1.0.0",
         "description": "API documentation for authentication and user management"
     },
@@ -261,6 +261,199 @@
                     }
                 }
             }
+        },
+            "/api/files": {
+              "get": {
+                "summary": "Get all files",
+                "description": "Retrieve all files and directories for a user.",
+                "tags": [
+                    "FileSystem"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "List of files",
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/File"
+                      }
+                    }
+                  },
+                  "500": {
+                    "description": "Internal server error"
+                  }
+                }
+              },
+              "post": {
+                "summary": "Create a new file or directory",
+                "description": "Create a new file or directory.",
+                "tags": [
+                    "FileSystem"
+                ],
+                "parameters": [
+                  {
+                    "name": "body",
+                    "in": "body",
+                    "description": "File or directory data",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/File"
+                    }
+                  }
+                ],
+                "responses": {
+                  "201": {
+                    "description": "File or directory created"
+                  },
+                  "400": {
+                    "description": "Invalid input"
+                  },
+                  "500": {
+                    "description": "Internal server error"
+                  }
+                }
+              }
+            },
+            "/api/files/{id}": {
+              "get": {
+                "summary": "Get a single file or directory",
+                "description": "Retrieve the details of a specific file or directory.",
+                "tags": [
+                    "FileSystem"
+                ],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "ID of the file or directory"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "File or directory details",
+                    "schema": {
+                      "$ref": "#/definitions/File"
+                    }
+                  },
+                  "404": {
+                    "description": "File or directory not found"
+                  },
+                  "500": {
+                    "description": "Internal server error"
+                  }
+                }
+              },
+              "put": {
+                "summary": "Update a file or directory",
+                "description": "Update the details of a specific file or directory.",
+                "tags": [
+                    "FileSystem"
+                ],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "ID of the file or directory"
+                  },
+                  {
+                    "name": "body",
+                    "in": "body",
+                    "required": true,
+                    "description": "Updated file or directory data",
+                    "schema": {
+                      "$ref": "#/definitions/File"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "File or directory updated"
+                  },
+                  "400": {
+                    "description": "Invalid input"
+                  },
+                  "404": {
+                    "description": "File or directory not found"
+                  },
+                  "500": {
+                    "description": "Internal server error"
+                  }
+                }
+              },
+              "delete": {
+                "summary": "Delete a file or directory",
+                "description": "Delete a specific file or directory.",
+                "tags": [
+                    "FileSystem"
+                ],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "ID of the file or directory"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "File or directory deleted"
+                  },
+                  "404": {
+                    "description": "File or directory not found"
+                  },
+                  "500": {
+                    "description": "Internal server error"
+                  }
+                }
+              }
+            }
+          },
+          "definitions": {
+            "File": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "User's email"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the file or directory"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["file", "directory"],
+                  "description": "Type of item (file or directory)"
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Path of the file or directory"
+                },
+                "extension": {
+                  "type": "string",
+                  "description": "File extension (if type is 'file')"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the file (if type is 'file')"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the file or directory was created"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the file or directory was last updated"
+                }
+              }
+            }
+          }
         }
-    }
-}
+    

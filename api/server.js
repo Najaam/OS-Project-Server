@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const authroute = require("../Routes/Authroutes");
-const fileroute = require("../Routes/Filesystemroutes")
 const fs = require("fs");
 
 const app = express();
@@ -25,6 +24,5 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/auth", authroute);
-app.use("/api/file", fileroute);
 
 module.exports = app

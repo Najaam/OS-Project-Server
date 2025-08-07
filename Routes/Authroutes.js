@@ -12,7 +12,6 @@ const {sendWelcomeEmail,sendOtpEmail} = require("../Helpers/mailing")
 router.get('/',(req, res)=>{
   res.status(200).json("This is auth route")
 })
-// User registration
 router.post('/newuser', async (req, res) => {
 try {
 const { username, email, password } = req.body;

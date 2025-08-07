@@ -261,6 +261,137 @@
                     }
                 }
             }
+        },"/api/file/create": {
+  "post": {
+    "summary": "Create a file or directory",
+    "description": "Creates a new file or directory and associates it with a user's email.",
+    "tags": ["File"],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "type": { "type": "string", "enum": ["file", "directory"] },
+              "content": { "type": "string" },
+              "parent": { "type": "string", "description": "Parent file ID (optional)" },
+              "ownerEmail": { "type": "string" }
+            },
+            "required": ["name", "type", "ownerEmail"]
+          }
         }
+      }
+    },
+    "responses": {
+      "201": { "description": "File or directory created successfully" },
+      "404": { "description": "User not found" },
+      "500": { "description": "Internal server error" }
+    }
+  }
+},
+"/api/file/list": {
+  "get": {
+    "summary": "List files or directories",
+    "description": "Returns files or directories for a user, optionally filtered by parent.",
+    "tags": ["File"],
+    "parameters": [
+      {
+        "name": "ownerEmail",
+        "in": "query",
+        "required": true,
+        "schema": { "type": "string" }
+      },
+      {
+        "name": "parent",
+        "in": "query",
+        "required": false,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Files listed successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "type": { "type": "string" },
+                  "content": { "type": "string" },
+                  "parent": { "type": "string" },
+                  "ownerEmail": { "type": "string" },
+                  "createdAt": { "type": "string", "format": "date-time" },
+                  "updatedAt": { "type": "string", "format": "date-time" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": { "description": "Internal server error" }
+    }
+  }
+},
+"/api/file/update/{id}": {
+  "put": {
+    "summary": "Update file name or content",
+    "description": "Updates the name or content of a file. Content updates apply only to files.",
+    "tags": ["File"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "content": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": { "description": "File updated successfully" },
+      "404": { "description": "File not found" },
+      "500": { "description": "Internal server error" }
+    }
+  }
+},
+"/api/file/delete/{id}": {
+  "delete": {
+    "summary": "Delete file or directory",
+    "description": "Deletes a file or directory by ID. If a directory, its children are also deleted.",
+    "tags": ["File"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "File deleted successfully" },
+      "404": { "description": "File not found" },
+      "500": { "description": "Internal server error" }
+    }
+  }
+}
+
     }
 }

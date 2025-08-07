@@ -20,7 +20,6 @@ router.post('/create', async (req, res) => {
     res.status(500).json({ error: 'Internal server error', details: err.message });
   }
 });
-
 // READ files/directories by user
 router.get('/list', async (req, res) => {
   try {

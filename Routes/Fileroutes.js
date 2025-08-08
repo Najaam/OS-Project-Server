@@ -28,7 +28,7 @@ router.get('/list', async (req, res) => {
     if (parent) filter.parent = parent;
     else filter.parent = null;
 
-    const files = await File.find(filter);
+const files = await File.find(filter);
     res.json(files);
   } catch (err) {
     res.status(500).json({ error: 'Internal server error', details: err.message });

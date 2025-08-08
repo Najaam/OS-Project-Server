@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-
-const mongourl = "mongodb+srv://test:test123@osproejct.vsjcopi.mongodb.net/?retryWrites=true&w=majority&appName=OSProejct";
+import dotenv from "dotenv";
+dotenv.config()
+const mongourl = process.env.DB_URI;
 
 const connectToMongoDB = async () => {
     try {

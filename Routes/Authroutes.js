@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const secretKey = crypto.randomBytes(32).toString('hex');
 const {sendWelcomeEmail,sendOtpEmail} = require("../Helpers/mailing")
-
 router.get('/',(req, res)=>{
   res.status(200).json("This is auth route")
 })
